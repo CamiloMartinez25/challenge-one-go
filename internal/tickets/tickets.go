@@ -64,10 +64,19 @@ func (s *Storage) GetTotalTicketsByTime(time string) (int, error) {
     }
 }
 
-// ejemplo 3
-func AverageDestination(destination string, total int) (int, error) {}
+// Get the average of passengers (%) which travel to specific destination
+func (s *Storage)AveragePassengersByDestination(destination string) (int, error) {
+	var totalPassengersByDestination, err := GetTotalTicketsByDestination(destination);
 
-// getTickets es una funcion que retorna un slice de Ticket
+	if err != nil {
+		return 0, err
+	}
+
+	return (totalPassengersByDestination / len(s.Tickets)) *100, err
+
+}
+
+// getTickets return a Slice of Ticket 
 func GetTickets(info []string) []Ticket {
 
 	var tickets []Ticket

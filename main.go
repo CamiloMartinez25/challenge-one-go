@@ -11,7 +11,7 @@ const (
 )
 
 func main() {
-	total, err := tickets.GetTotalTickets("Brazil")
+	total, err := tickets.GetTotalTicketsByDestination("Brazil")
 
 	fileInfo := getFileInfo(filename)
 

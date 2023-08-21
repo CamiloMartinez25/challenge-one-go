@@ -26,7 +26,7 @@ type Storage struct {
 	Tickets []Ticket
 }
 
-// ejemplo 1
+// Get total tickets booked by specific destination
 func (s *Storage) GetTotalTickets(destination string) (int, error) {
 	var ticketsQ := 0
 

@@ -2,6 +2,15 @@ package tickets
 
 import (
 	"strings"
+	"errors"
+)
+
+const (
+	increment: 1
+)
+
+var (
+	countError: errors.New("The count of tickets for the search is 0")
 )
 
 type Ticket struct {
@@ -18,7 +27,21 @@ type Storage struct {
 }
 
 // ejemplo 1
-func GetTotalTickets(destination string) (int, error) {}
+func (s *Storage) GetTotalTickets(destination string) (int, error) {
+	var ticketsQ := 0
+
+	for _, ticket := range s.Tickets {
+		if ticket.Destination == destination {
+			ticketsQ += increment
+		}
+	}
+
+	if ticketsQ == 0 {
+		err := countError
+	}
+
+	return ticketsQ, err
+}
 
 // ejemplo 2
 func GetMornings(time string) (int, error) {}

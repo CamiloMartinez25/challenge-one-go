@@ -1,3 +1,3 @@
-module github.com/bootcamp-go/desafio-go-bases
+module github.com/CamiloMartinez25/challenge-one-go
 
 go 1.17

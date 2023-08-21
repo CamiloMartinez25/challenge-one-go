@@ -6,11 +6,16 @@ import (
 )
 
 const (
-	increment: 1
+	increment: 1,
+	earlyMorning: []int{0, 6},
+	morning: []int{6, 12},
+	afternoon: []int{12, 19},
+	evening: []int{19, 0}
 )
 
 var (
-	countError: errors.New("The count of tickets for the search is 0")
+	countError: errors.New("The count of tickets for the search is 0"),
+	timeNotFound: errors.New("The time provided doesn't match with any time existing")
 )
 
 type Ticket struct {
@@ -27,7 +32,7 @@ type Storage struct {
 }
 
 // Get total tickets booked by specific destination
-func (s *Storage) GetTotalTickets(destination string) (int, error) {
+func (s *Storage) GetTotalTicketsByDestination(destination string) (int, error) {
 	var ticketsQ := 0
 
 	for _, ticket := range s.Tickets {
@@ -43,8 +48,21 @@ func (s *Storage) GetTotalTickets(destination string) (int, error) {
 	return ticketsQ, err
 }
 
-// ejemplo 2
-func GetMornings(time string) (int, error) {}
+// Get total tickets by specific time
+func (s *Storage) GetTotalTicketsByTime(time string) (int, error) {
+	switch time {
+    case "early morning":
+        return getTicketsByTimeRange(earlyMorning, s.Tickets)
+    case "morning":
+        return getTicketsByTimeRange(morning, s.Tickets)
+    case "afternoon":
+        return getTicketsByTimeRange(afternoon, s.Tickets)
+	case "evening":
+        return getTicketsByTimeRange(evening, s.Tickets)
+	default:
+		return 0, timeNotFound
+    }
+}
 
 // ejemplo 3
 func AverageDestination(destination string, total int) (int, error) {}
@@ -70,3 +88,21 @@ func GetTickets(info []string) []Ticket {
 	}
 	return tickets
 }
+
+
+func getTicketsByTimeRange(timeRange []int, tickets []Ticket) (int, error) {
+	var ticketsQ := 0
+
+	for _, ticket := range s.Tickets {
+		var time := strings.Split(string(ticket.Time), ":")[0]
+		if +time > timeRange[0] && +time <= timeRange[1] {
+			ticketsQ += increment
+		}
+	}
+
+	if ticketsQ == 0 {
+		err := countError
+	}
+
+	return ticketsQ, err
+}	

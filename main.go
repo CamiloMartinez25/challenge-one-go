@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"strings"
-
 	"github.com/CamiloMartinez25/challenge-one-go/internal/tickets"
 )
 
@@ -14,7 +13,7 @@ const (
 func main() {
 	total, err := tickets.GetTotalTickets("Brazil")
 
-	fileInfo := getFile(filename)
+	fileInfo := getFileInfo(filename)
 
 	storage := tickets.Storage{
 		Tickets: tickets.GetTickets(fileInfo),
@@ -22,7 +21,7 @@ func main() {
 
 }
 
-func getFile(filename string) []string {
+func getFileInfo(filename string) []string {
 
 	file, err := os.ReadFile(filename)
 

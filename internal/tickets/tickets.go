@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	countError   = errors.New("The count of tickets for the search is 0")
+	countError   = "Ticket count is 0 for "
 	timeNotFound = errors.New("The time provided doesn't match with any time existing")
 	earlyMorning = []int{0, 6}
 	morning      = []int{6, 12}
@@ -43,7 +43,7 @@ func (s *Storage) GetTotalTicketsByDestination(destination string) (int, error) 
 	}
 
 	if ticketsQ == 0 {
-		err := countError
+		err := errors.New(countError + "the destination of " + destination)
 		return ticketsQ, err
 	}
 
@@ -74,7 +74,7 @@ func (s *Storage) AveragePassengersByDestination(destination string) (float64, e
 	}
 
 	var average = (float64(totalPassengersByDestination) / float64(len(s.Tickets))) * 100.0
-	return average, err
+	return average, nil
 
 }
 
@@ -105,8 +105,8 @@ func getTicketsByTimeRange(timeRange []int, tickets []Ticket) (int, error) {
 
 	for _, ticket := range tickets {
 		time := strings.Split(string(ticket.Time), ":")[0]
-
 		timeInt, err := strconv.Atoi(time)
+
 		if err != nil {
 			return ticketsQ, err
 		}
@@ -117,7 +117,7 @@ func getTicketsByTimeRange(timeRange []int, tickets []Ticket) (int, error) {
 	}
 
 	if ticketsQ == 0 {
-		err := countError
+		err := errors.New(countError + "the time range of " + strconv.Itoa(timeRange[0]) + " - " + strconv.Itoa(timeRange[1]) + " hours")
 		return ticketsQ, err
 	}
 

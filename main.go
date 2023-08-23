@@ -51,10 +51,12 @@ func main() {
 
 	go getTicketsInfo(canalTickets, canalErr, averageDestination, destination, morning, storage)
 
-	for ticketMsj := range canalTickets {
+	os.Exit(1)
 
-		fmt.Println(ticketMsj)
-	}
+	// for ticketMsj := range canalTickets {
+
+	// 	fmt.Println(ticketMsj)
+	// }
 
 }
 
@@ -113,6 +115,5 @@ func printChanelsInfo(chTicket chan string, chErr chan error) {
 		fmt.Println(pr)
 	case err := <-chErr:
 		log.Fatal(err)
-		os.Exit(1)
 	}
 }

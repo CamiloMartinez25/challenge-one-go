@@ -61,6 +61,7 @@ func main() {
 	printChannelSInfo(chTickets, chError)
 }
 
+// getFileInfo is a function that reads a file and returns its information in a slice.
 func getFileInfo(filename string) []string {
 
 	file, err := os.ReadFile(filename)
@@ -72,6 +73,7 @@ func getFileInfo(filename string) []string {
 	return strings.Split(string(file), "\n")
 }
 
+// getTicketsInfo is a function that loads the information consulted in a channel
 func getTicketsInfo(chTicket chan string, chErr chan error, infoType string, destination string, time string, storage tickets.Storage) {
 	defer wg.Done()
 	switch infoType {
@@ -105,6 +107,7 @@ func getTicketsInfo(chTicket chan string, chErr chan error, infoType string, des
 
 }
 
+// printChannelSInfo is a function that I saw printing the information of a channel
 func printChannelSInfo(chTickets chan string, chError chan error) {
 	for {
 		select {

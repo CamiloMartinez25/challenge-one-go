@@ -19,6 +19,7 @@ var (
 	evening      = []int{19, 0}
 )
 
+// Ticket is a structure that represents a plane ticket
 type Ticket struct {
 	Id          string
 	Name        string
@@ -28,6 +29,7 @@ type Ticket struct {
 	Price       string
 }
 
+// Storage is a structure that stores all existing Tickets
 type Storage struct {
 	Tickets []Ticket
 }
@@ -78,7 +80,7 @@ func (s *Storage) AveragePassengersByDestination(destination string) (float64, e
 
 }
 
-// getTickets return a Slice of Ticket
+// GetTickets return a Slice of Ticket
 func GetTickets(info []string) []Ticket {
 
 	var tickets []Ticket
@@ -100,6 +102,7 @@ func GetTickets(info []string) []Ticket {
 	return tickets
 }
 
+// getTicketsByTimeRange is a function that returns the number of tickets in a time range
 func getTicketsByTimeRange(timeRange []int, tickets []Ticket) (int, error) {
 	ticketsQ := 0
 
